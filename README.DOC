@@ -1,0 +1,388 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Reference Guide
+
+
+
+Fast Image Rendering for Ray Tracing 
+
+Algebraic Surfaces Using a Fibonacci
+
+Based Psuedo-Random Number Generator
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	Randall W. Charlick							October, 1992
+
+
+
+
+
+Table of Contents
+
+
+
+											         Page
+
+
+
+
+
+Chapter 1. 		Introduction
+
+			About This Guide							1
+
+			Background								1
+
+			Project Description							2
+
+
+
+
+
+Chapter 2. 		Operation								
+
+			Requirements								3
+
+				General Hardware						3
+
+				Hardware							3
+
+			Installation								4
+
+			Configuration								4
+
+			Color Palette								5
+
+			Program Execution							5
+
+				Command Line Mode						5
+
+				Menu Mode
+
+
+
+
+
+Chapter 3. 		Compilation
+
+			Standard compilation for Borland C++ 3.0
+
+			Genus Graphics Libraries
+
+			Portability
+
+			Source File Descriptions
+
+			Adding New Images
+
+			
+
+
+
+Chapter 4. 		Miscellaneous Files
+
+			Data Files
+
+				Image Menu Definition
+
+				Image file fields
+
+			PCX Files
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Page 1
+
+CHAPTER 1
+
+INTRODUCTION
+
+About This Guide
+
+	This Reference Guide is included as practical guide describing
+the installation, use and
+
+enhancement of this software.  In depth descriptions of
+compilation instructions and the function and purpose of all
+project files are included in this file.  Further descriptions
+of additional documentation,
+
+such as the operational theory of Ray Tracing algorithms and
+other underlying theoretical  discussions, are outside the scope
+of this guide.  This guide assumes that the reader has a
+significant background in high level computer programming
+languages, such as C, and has enough MS DOS experience to feel
+comfortable with the installation and operation steps described
+in this manual. 
+
+
+
+Background
+
+	This project was developed for Dr. Peter Anderson at the
+Rochester Institute of Technology as a Computer Graphics Masters
+Project.  It is an implementation of two effective computer
+graphics rendering techniques:  The first is the ray tracing of
+algebraic surfaces, which is  described in the research paper,
+Ray Tracing Algebraic Surfaces, by Pat Hanrahan;  The second is
+from Dr. Peter Anderson's research on Fibonacci-based Pseudo
+Random number generators.  The article by  Pat Hanrahan
+describes a computationally expensive method of displaying
+algebraic surfaces, which yields impressive renderings of
+complex computer graphics.  Dr. Anderson's method of pixel
+selection and display techniques, allows for rapid recognition
+of these renderings. This project was started in early April
+1992 and was initially submitted in October 1992.  The source
+code consists
+
+of six C source code files and eight include files for a total
+of about eight-thousand commented lines
+
+of ANSI C code.  Although this project is compiled with Borland
+C++ (version 3.0) and makes 
+
+Page 2
+
+significant use of the Genus graphics libraries, it is highly
+portable to other compilers and  other hardware platforms.
+
+
+
+Project Description
+
+	This project is a full screen image rendering program using ray
+tracing algorithms able to display fourth degree algebraic
+surfaces.  In addition, a variety of image recognition enhancing
+techniques are employed.  The program can be run from the
+command line with all major options specified via command line
+arguments.  In addition to the command line mode a fully mouse
+driven menu mode is supported.   The program makes use of
+"Super" VGA modes supporting 256 color video modes up to 1024 x
+768 pixels.  Additionally, the program allows for a split screen
+display, allowing for comparisons among any of the five pixel
+selection techniques.  Scan line pixel selection methods can
+have either horizontal or vertical orientation.  Image display
+region size is affected by the optional status display which is
+continuously updated during the image rendering.  In addition,
+the menu mode allows for full screen display by allowing the
+menu to be removed during image display execution.  The
+rendering process is interruptible and an image scene can be
+saved and restored upon completion or after the rendering is
+interrupted.  Finally, a large number of two, three and four
+degree surfaces are included.  Orientation, lighting and
+inclusion of all images is easily specified in the configuration
+and data files.  Addition of new surfaces to the program is
+easily accomplished and is described later in this guide.
+
+
+
+
+
+
+
+Page 3
+
+CHAPTER 2
+
+OPERATION
+
+Requirements
+
+	CPU:  There is no minimum requirement for a processor.  In
+addition, a math coprocessor is not required either, however,
+since this program is very math intensive, the minimum
+recommended processor configuration would be an 80386 running at
+25Mhz.  A Math coprocessor is highly recommended.  Typical scene
+renderings on this configuration run from 25 to 150 minutes
+depending upon the degree of the equation (2, 3 or 4) and the
+number of images (1to 8).  Disk Space: Recommended hard disk
+space is 3 to 5 MB.  Although the source code, executables, data
+files and documentation require less than 1MB of disk space, PCX
+files generated by the image saving option can take up to
+several hundred  kilobytes depending upon screen resolution. 
+Memory:  Extended memory is not required, but the absence of
+extended memory will effect some of the advanced features, such
+as the ability to save and restore the image to and from PCX
+files.  In addition lack of extended memory will cause the menu
+mode to leave "holes" in the rendered image if menu items are
+selected after the image is completed or interrupted.  Mouse:  A
+mouse is required to operate in the menu mode. 
+
+	Video Modes:  A VGA compatible vide card with at least 256K of
+video RAM is required.  The program also requires at least 256
+simultaneous colors and a resolution of 640 x 400. In addition,
+resolutions up to 1024 x 768 are supported.  By definition, the
+minimum supported video mode is beyond the standard of VGA. 
+This software supports nearly all common VGA board makers,
+including the following:  Paradise, Video 7, ATI Graphics,
+Trident, most Tseng based (ET3000 and ET4000) chip sets and
+VESA.  The following modes are supported for each chip set: 
+1024 x 768, 800 x 600, 640 x 480 and 640 x 400.   
+
+Page 4
+
+
+
+Installation
+
+	Installation of the rendering software is simply a matter of
+copying the contents of the floppy to a specific subdirectory on
+the hard drive.  Bare minimum installation requires the
+render.exe executable file, the image.mnu menu file, all of the
+associated *.img files and the render.cfg configuration file to
+be in the same directory.  Additionally,  the source files *.c
+and *.h Assuming that the Borland C++ compiler is installed and
+the Genus microprogramming libraries are installed.
+
+
+
+Configuration
+
+	Configuration of the software is limited to the render.cfg file
+and the image.mnu menu file and the *.img image files which will
+be discussed in chapter 4.  The three lines in the render.cfg
+file with the labels SUNX, SUNY and SUNZ are world coordinates
+of the light source  based upon the current horizontal  position
+for normalized coordinates. The values of the light source
+coordinates can be either positive or negative, indicating
+direction.  The next field label, BCKC indicates the background
+color of the image scenes.  Values for the background can range
+from 0 to 255 and are effected by the color palette assignment,
+therefore background colors should range from 0 to 15.  The next
+label, SATA determines the saturation angle used to determine
+the overall brightness of the illumination model. Values from 75
+to 150 yield the best results.  Finally,  the CHCK label is used
+to enable root finding accuracy testing for debugging purposes
+and should be set to 0 for off.
+
+
+
+Palette
+
+	The AssignPalette function located in the display.c file
+assigns the last 240 (16 through 255) colors to 64 varying
+shades each of red, green and blue and 48 shades of white.  The
+first 16 colors are assigned to the standard 16 color VGA
+palette and are defined as follows:
+
+
+
+		Black			0
+
+		Blue			1
+
+		Green			2
+
+		Cyan			3
+
+		Red			4
+
+		Magenta		5
+
+		Brown			6
+
+		Gray			7
+
+		Dark Gray		8
+
+		Light Blue		9
+
+		Light Green		10
+
+		Light Cyan		11
+
+		Light Red		12
+
+		Light Magenta		13
+
+		Yellow			14
+
+		White			15
+
+
+
+These color values can be assigned to the background color label
+in the render.cfg file.
+
+

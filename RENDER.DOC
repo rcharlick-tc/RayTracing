@@ -1,0 +1,56 @@
+
+      /*--------------------------------------------------------------------
+
+       Surface Equations:
+             
+         Sphere                     X^2 + Y^2 + Z^2 - r^2 = 0
+         Cylinder                   X^2 + Z^2 - r^2 = 0
+         Cone                       X^2 + Y^2 - Z^2 = 0
+         Torus                      (X^2 + Y^2 + Z^2 - (r^2 + R^2))^2 - 4r^2(R^2 - Z^2)
+         Steiner's Surface          X^2 * Y^2 + Y^2 * Z^2 + Z^2 * X^2 + X * Y * Z = 0
+         Krummer's Surface          (X^4 + Y^4 + Z^4 + 1) - (X^2 + Y^2 + Z^2 + Y^2 * Z^2 + Z^2 * X^2 + X^2 * Y^2) = 0
+         Cubic Cusp Catastrophe     Z^3 + X * Z + Y = 0
+         Generic Surface            (X^2 + (Y - 1)^2 - 1) * (Y + 1) - Z^2 = 0
+
+         Ray Substitution           X = X1 * t + X0; Y = Y1 * t + Y0; Z = Z1 * t + Z0
+
+      --------------------------------------------------------------------*/
+
+
+
+
+       Normal Equations:
+             
+         Sphere                     2X 
+                                    2Y
+                                    2Z
+
+         Cylinder                   2X
+                                    0
+                                    2Z
+
+         Cone                       2X
+                                   -2Y
+                                    2Z
+
+         Torus                      4X^3 + 4Y^2 * X + 4Z^2 * X - 4rX - 4RX;
+                                    4Y^3 + 4X^2 * Y + 4Z^2 * Y - 4rY - 4RY;
+                                    4Z^3 + 4X^2 * Z + 4Y^2 * Z - 4rZ - 4RZ - 8r^2 * Z;
+
+         Steiner's Surface          2Y^2 * X + 2Z^2 * X + YZ
+                                    2X^2 * Y + 2Z^2 * Y + XZ
+                                    2Y^2 * Z + 2X^2 * Z + XY
+
+         Krummer's Surface          4X^3 - 2X - 2Z^2 * X - 2Y^2 * X
+                                    4Y^3 - 2Y - 2Z^2 * Y - 2X^2 * Y
+                                    4Z^3 - 2Z - 2X^2 * Z - 2Y^2 * Z
+
+         Cubic Cusp Catastrophe     Z
+                                    1
+                                    2Z^2 + X
+
+         Generic Surface            2XY + 2X
+                                    2Y^2 - 2Y + X^2 - Z
+                                    2Z
+
+		This program...
